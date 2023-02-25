@@ -1,13 +1,16 @@
 package example.demo.model;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 @Data
 @Entity
 @Builder
 @Table
+@AllArgsConstructor
+@RequiredArgsConstructor
+@Getter
+@Setter
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

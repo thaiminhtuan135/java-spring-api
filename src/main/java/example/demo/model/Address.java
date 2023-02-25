@@ -1,13 +1,15 @@
 package example.demo.model;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 @Entity
-@Data
+@AllArgsConstructor
+@RequiredArgsConstructor
 @Builder
 @Table
+@Getter
+@Setter
 public class Address {
 
     @Id
@@ -19,7 +21,7 @@ public class Address {
     private String province;
 
     @OneToOne
-    @JoinColumn(name = "person_id")
+    @JoinColumn(name = "person_id", referencedColumnName = "id")
     private Person person;
 
 }
