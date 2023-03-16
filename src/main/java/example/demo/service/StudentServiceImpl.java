@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StudentServiceImpl implements StudentService{
@@ -16,6 +17,11 @@ public class StudentServiceImpl implements StudentService{
 
     @Override
     public Student saveStudent(Student student) {
+        Optional<Student> studentOptional = studentRepository.findStudentByName(student.getName());
+        if (studentOptional.isPresent()) {
+            throw new IllegalStateException("name taken");
+        }
+
         return studentRepository.save(student);
     }
 
@@ -32,6 +38,7 @@ public class StudentServiceImpl implements StudentService{
     @Override
     public void delete(Integer id) {
         studentRepository.deleteById(id);
+        
     }
 
     @Override
