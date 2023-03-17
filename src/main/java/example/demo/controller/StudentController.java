@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -23,6 +24,7 @@ public class StudentController {
     @Autowired
     private PersonService personService;
 
+    public final List<Student> students = new ArrayList<>();
 
     @PostMapping("/add")
     public ResponseEntity<Student> add(@RequestBody Student student) {
@@ -34,7 +36,15 @@ public class StudentController {
 
     @GetMapping("/getAll")
     public List<Student> getAllStudent() {
-        return studentService.getAllStudent();
+        List<Student> studentAddress = new ArrayList<>();
+        List<Student> students = getStudent();
+        for (Student student : students) {
+            if (student.getAddress().equals("bac ninh")) {
+                studentAddress.add(student);
+            }
+        }
+//        return studentService.getAllStudent();
+        return studentAddress;
     }
 
     @GetMapping("/{id}")
@@ -67,7 +77,7 @@ public class StudentController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<?> search(@RequestParam(name = "keyword" , required = false , defaultValue = "") String name) {
+    public ResponseEntity<?> search(@RequestParam(name = "keyword", required = false, defaultValue = "") String name) {
 //        studentService.searchUser(name);
         return ResponseEntity.status(HttpStatus.OK).body(studentService.searchUser(name));
     }
@@ -75,6 +85,17 @@ public class StudentController {
     @GetMapping("/add-list-address")
     public ResponseEntity<String> addAddress() {
         personService.addListPerson();
-        return ResponseEntity.ok("them thanh cong") ;
+        return ResponseEntity.ok("them thanh cong");
+    }
+
+    private static List<Student> getStudent() {
+        return List.of(
+                new Student(1, "james bond", "bac ninh"),
+                new Student(2, "alina smith", "ha noi"),
+                new Student(3, "anna cook", "hai duong"),
+                new Student(4, "jame god", "ninh binh"),
+                new Student(5, "robin", "bac ninh"),
+                new Student(6, "robin", "thi cau")
+        );
     }
 }
