@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin
@@ -36,13 +37,14 @@ public class StudentController {
 
     @GetMapping("/getAll")
     public List<Student> getAllStudent() {
-        List<Student> studentAddress = new ArrayList<>();
-        List<Student> students = getStudent();
-        for (Student student : students) {
-            if (student.getAddress().equals("bac ninh")) {
-                studentAddress.add(student);
-            }
-        }
+//        List<Student> studentAddress = new ArrayList<>();
+//        List<Student> students = getStudent();
+//        for (Student student : students) {
+//            if (student.getAddress().equals("bac ninh")) {
+//                studentAddress.add(student);
+//            }
+//        }
+        List<Student> studentAddress = getStudent().stream().filter(x -> x.getAddress().equals("bac ninh")).collect(Collectors.toList());
 //        return studentService.getAllStudent();
         return studentAddress;
     }

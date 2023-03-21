@@ -47,13 +47,13 @@ public class Main {
 //        persons.stream().max(Comparator.comparing(Person::getAge)).ifPresent(System.out::println);
 
 //        group by
-//        Map<Gender, List<Person>> groupByGender = persons.stream().collect(Collectors.groupingBy(Person::getGender));
-//        System.out.println(groupByGender);
-//        groupByGender.forEach((gender, people) -> {
-//            System.out.println(gender);
-//            people.forEach(System.out::println);
-//            System.out.println();
-//        });
+        Map<Gender, List<Person>> groupByGender = persons.stream().collect(Collectors.groupingBy(Person::getGender));
+        System.out.println(groupByGender);
+        groupByGender.forEach((gender, people) -> {
+            System.out.println(gender);
+            people.forEach(System.out::println);
+            System.out.println();
+        });
 
 //        chain
 //        Optional<String> oldestFemaleAge = persons.stream()
