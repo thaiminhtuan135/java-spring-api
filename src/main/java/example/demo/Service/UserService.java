@@ -4,8 +4,8 @@ import example.demo.Entity.Role;
 import example.demo.Entity.User;
 
 public interface UserService{
-//    User saveUser(User user);
-//    Role saveRole(Role user);
+    User saveUser(User user);
+    Role saveRole(Role user);
 
-//    public void addToUser(String username, String rolename);
+    public void addToUser(String username, String rolename);
 }

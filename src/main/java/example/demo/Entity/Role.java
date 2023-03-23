@@ -15,6 +15,7 @@ import java.util.Set;
 @Data
 @Builder
 @AllArgsConstructor
+@Entity
 @NoArgsConstructor
 @Table(name = "Roles")
 public class Role {
@@ -30,6 +31,9 @@ public class Role {
 
     public Role(Long id, String name) {
         this.id = id;
+        this.name = name;
+    }
+    public Role(String name) {
         this.name = name;
     }
 }

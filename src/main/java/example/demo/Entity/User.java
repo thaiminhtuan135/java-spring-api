@@ -14,25 +14,25 @@ import java.util.*;
 
 @Data
 @Builder
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "Users")
-@EnableJpaRepositories
 public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String full_name;
-    private String user_name;
+    private String fullname;
+    private String username;
     private String email;
     private String password;
 
     @ManyToMany
     @JoinTable(
-            name = "user_role",
-            joinColumns = @JoinColumn(name = "User_id"),
-            inverseJoinColumns = @JoinColumn(name = "Role_id")
+            name = "users_role",
+            joinColumns = @JoinColumn(name = "Users_Id"),
+            inverseJoinColumns = @JoinColumn(name = "Roles_ID")
     )
     private Set<Role> roles = new HashSet<>();
     @Override
@@ -41,15 +41,6 @@ public class User implements UserDetails {
         roles.stream().forEach(i -> authorities.add(new SimpleGrantedAuthority(i.getName())));
         return List.of(new SimpleGrantedAuthority(authorities.toString()));
     }
-
-//    public User(Long id, String full_name, String user_name, String email, String password, Set<Role> roles) {
-//        this.id = id;
-//        this.full_name = full_name;
-//        this.user_name = user_name;
-//        this.email = email;
-//        this.password = password;
-//        this.roles = roles;
-//    }
 
     @Override
     public String getPassword() {

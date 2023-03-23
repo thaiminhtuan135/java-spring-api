@@ -14,8 +14,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-//@Transactional
-//@Slf4j
+@Transactional
+@Slf4j
 public class UserServeImpl implements UserService {
 
     @Autowired
@@ -23,21 +23,21 @@ public class UserServeImpl implements UserService {
     @Autowired
     private RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
-//    @Override
-//    public User saveUser(User user) {
-//        user.setPassword(passwordEncoder.encode(user.getPassword()));
-//        return userRepository.save(user);
-//    }
-//
-//    @Override
-//    public Role saveRole(Role role) {
-//        return roleRepository.save(role);
-//    }
-//
-//    @Override
-//    public void addToUser(String username, String rolename) {
-//        User user = userRepository.findByEmail(username);
-//        Role role = roleRepository.findByName(rolename);
-//        user.getRoles().add(role);
-//    }
+    @Override
+    public User saveUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userRepository.save(user);
+    }
+
+    @Override
+    public Role saveRole(Role role) {
+        return roleRepository.save(role);
+    }
+
+    @Override
+    public void addToUser(String username, String rolename) {
+        User user = userRepository.findByEmail(username).get();
+        Role role = roleRepository.findByName(rolename);
+        user.getRoles().add(role);
+    }
 }

@@ -17,6 +17,7 @@ import java.util.HashSet;
 //@SpringBootApplication(exclude = SecurityAutoConfiguration.class)
 @SpringBootApplication
 @EnableWebSecurity
+@EnableJpaRepositories
 public class DemoApplication {
 
 	public static void main(String[] args) {
@@ -29,22 +30,20 @@ public class DemoApplication {
         return new BCryptPasswordEncoder();
     }
 
-//    @Bean
-//    CommandLineRunner runner(UserService userService) {
-//        return args -> {
-//            userService.saveRole(new Role(null,"ROLE_USER"));
-//            userService.saveRole(new Role(null,"ROLE_MANAGER"));
-//            userService.saveRole(new Role(null,"ROLE_ADMIN"));
-//            userService.saveRole(new Role(null,"ROLE_SUPER_ADMIN"));
-//
-//            userService.saveUser(new User(null, "Minh Tuan","TuanKane" ,"tuan@gmail.com", "123456", new HashSet<>()));
-//            userService.saveUser(new User(null, "Ngoc Anh","AnhMessi" ,"tuan1@gmail.com", "123456", new HashSet<>()));
-//            userService.saveUser(new User(null, "Bao Khanh","KhanhRol" ,"tuan2@gmail.com", "123456", new HashSet<>()));
-//
-//            userService.addToUser("tuan@gmail.com","ROLE_USER");
-//            userService.addToUser("aaa@gmail.com","ROLE_ADMIN");
-//
-//        };
-//    }
+    @Bean
+    CommandLineRunner runner(UserService userService) {
+        return args -> {
+            userService.saveRole(new Role(null,"ROLE_USER"));
+            userService.saveRole(new Role(null,"ROLE_MANAGER"));
+            userService.saveRole(new Role(null,"ROLE_ADMIN"));
+            userService.saveRole(new Role(null,"ROLE_SUPER_ADMIN"));
+
+            userService.saveUser(new User(null, "Long Thanh","TuanKane" ,"Thanhlong@gmail.com", "123456", new HashSet<>()));
+            userService.saveUser(new User(null, "Ngoc Anh","AnhMessi" ,"thanhnam@gmail.com", "123456", new HashSet<>()));
+
+            userService.addToUser("Thanhlong@gmail.com","ROLE_USER");
+
+        };
+    }
 
 }
