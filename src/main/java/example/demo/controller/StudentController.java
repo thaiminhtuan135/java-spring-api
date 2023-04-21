@@ -1,8 +1,6 @@
 package example.demo.controller;
 
-import example.demo.model.Person;
 import example.demo.model.Student;
-import example.demo.service.PersonService;
 import example.demo.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,8 +19,6 @@ import java.util.Optional;
 public class StudentController {
     @Autowired
     private StudentService studentService;
-    @Autowired
-    private PersonService personService;
 
     public final List<Student> students = new ArrayList<>();
 
@@ -36,15 +32,16 @@ public class StudentController {
 
     @GetMapping("/getAll")
     public List<Student> getAllStudent() {
-        List<Student> studentAddress = new ArrayList<>();
-        List<Student> students = getStudent();
-        for (Student student : students) {
-            if (student.getAddress().equals("bac ninh")) {
-                studentAddress.add(student);
-            }
-        }
-//        return studentService.getAllStudent();
-        return studentAddress;
+//        List<Student> studentAddress = new ArrayList<>();
+//        List<Student> students = getStudent();
+//        for (Student student : students) {
+//            if (student.getAddress().equals("bac ninh")) {
+//                studentAddress.add(student);
+//            }
+//        }
+
+        return studentService.getAllStudent();
+//        return studentAddress;
     }
 
     @GetMapping("/{id}")
@@ -82,20 +79,19 @@ public class StudentController {
         return ResponseEntity.status(HttpStatus.OK).body(studentService.searchUser(name));
     }
 
-    @GetMapping("/add-list-address")
-    public ResponseEntity<String> addAddress() {
-        personService.addListPerson();
-        return ResponseEntity.ok("them thanh cong");
+    @GetMapping("/add-list-student")
+    public ResponseEntity<String> addStudents() {
+        studentService.addListStudent();
+        return ResponseEntity.ok("them thanh cong") ;
     }
-
-    private static List<Student> getStudent() {
-        return List.of(
-                new Student(1, "james bond", "bac ninh"),
-                new Student(2, "alina smith", "ha noi"),
-                new Student(3, "anna cook", "hai duong"),
-                new Student(4, "jame god", "ninh binh"),
-                new Student(5, "robin", "bac ninh"),
-                new Student(6, "robin", "thi cau")
-        );
-    }
+//    private static List<Student> getStudent() {
+//        return List.of(
+//                new Student(1, "james bond", "bac ninh"),
+//                new Student(2, "alina smith", "ha noi"),
+//                new Student(3, "anna cook", "hai duong"),
+//                new Student(4, "jame god", "ninh binh"),
+//                new Student(5, "robin", "bac ninh"),
+//                new Student(6, "robin", "thi cau")
+//        );
+//    }
 }

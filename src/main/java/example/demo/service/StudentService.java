@@ -15,4 +15,6 @@ public interface StudentService {
     public void delete(Integer id);
 
     public List<Student> searchUser(String keyword);
+
+    void addListStudent();
 }

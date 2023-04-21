@@ -9,25 +9,24 @@ import java.util.List;
 @Data
 @Entity
 @Table
-@Builder
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Getter
 @Setter
-public class Student {
-
+@Builder
+public class Classs {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @Column(name = "name")
     private String name;
 
-    @Column(name = "year_of_birth")
-    private int year_of_birth;
-    @Column(name = "address")
-    private String address;
+    @Column(name = "number")
+    private int number;
 
-    @ManyToOne()
-    @JoinColumn(name = "classs_id")
-    private Classs classs;
+    @OneToMany(mappedBy = "classs")
+    private List<Student> studentList = new ArrayList<>();
+
+
 }
