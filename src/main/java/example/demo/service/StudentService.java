@@ -1,5 +1,6 @@
 package example.demo.service;
 
+import example.demo.exception.UserNotFoundException;
 import example.demo.model.Student;
 import org.springframework.http.ResponseEntity;
 
@@ -10,7 +11,7 @@ public interface StudentService {
 
     public List<Student> getAllStudent();
 
-    public Student get(Integer id);
+    public Student get(Integer id) throws UserNotFoundException;
 
     public void delete(Integer id);
 

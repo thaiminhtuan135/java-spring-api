@@ -1,6 +1,8 @@
 package example.demo.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @Data
@@ -15,8 +17,10 @@ public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @NotBlank
     @Column(name = "name")
     private String name;
+    @Min(5)
     @Column(name = "address")
     private String address;
 

@@ -1,5 +1,6 @@
 package example.demo.service;
 
+import example.demo.exception.UserNotFoundException;
 import example.demo.model.Student;
 import example.demo.repository.StudentRepository;
 import org.jetbrains.annotations.NotNull;
@@ -31,8 +32,13 @@ public class StudentServiceImpl implements StudentService{
     }
 
     @Override
-    public Student get(Integer id) {
-        return studentRepository.findById(id).get();
+    public Student get(Integer id) throws UserNotFoundException {
+        Optional<Student> student =  studentRepository.findById(id);
+        if (student.isPresent()) {
+            return student.get();
+        } else {
+            throw new UserNotFoundException("user not found with id : " + id);
+        }
     }
 
     @Override

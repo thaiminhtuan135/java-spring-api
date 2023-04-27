@@ -1,9 +1,10 @@
 package example.demo.controller;
 
-import example.demo.model.Person;
+import example.demo.exception.UserNotFoundException;
 import example.demo.model.Student;
 import example.demo.service.PersonService;
 import example.demo.service.StudentService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @RestController
@@ -27,7 +27,7 @@ public class StudentController {
     public final List<Student> students = new ArrayList<>();
 
     @PostMapping("/add")
-    public ResponseEntity<Student> add(@RequestBody Student student) {
+    public ResponseEntity<Student> add(@RequestBody @Valid Student student) {
 //        studentService.saveStudent(student);
 //        return "New student is added";
         return new ResponseEntity<>(studentService.saveStudent(student), HttpStatus.OK);
@@ -48,17 +48,22 @@ public class StudentController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Student> get(@PathVariable Integer id) {
-        try {
-            Student student = studentService.get(id);
-            return new ResponseEntity<Student>(student, HttpStatus.OK);
-        } catch (NoSuchElementException e) {
-            return new ResponseEntity<Student>(HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<Student> get(@PathVariable Integer id) throws UserNotFoundException {
+//        Student student = studentService.get(id);
+//        if (student!= null)
+//            return new ResponseEntity<Student>(student, HttpStatus.OK);
+//        else
+//            throw new UserNotFoundException("user not found with id : "+id);
+//        try {
+//            Student student = studentService.get(id);
+        return ResponseEntity.ok(studentService.get(id));
+//        } catch (NoSuchElementException e) {
+//            return new ResponseEntity<Student>(HttpStatus.NOT_FOUND);
+//        }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Student> update(@RequestBody Student student, @PathVariable Integer id) {
+    public ResponseEntity<Student> update(@RequestBody Student student, @PathVariable Integer id) throws UserNotFoundException {
 
         Optional<Student> studentOptional = Optional.ofNullable(studentService.get(id));
 
